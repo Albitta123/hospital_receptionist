@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment - Trinity Care Hospital</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #651f57;
+      --primary-dark: #521847;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .header {
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+    }
+
+    .hospital-title {
+      font-weight: 600;
+    }
+
+    .appointment-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    .confirmation-card {
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .confirmation-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .slot-number {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background-color: rgba(255,255,255,0.2);
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 15px 0;
+    }
+
+    .patient-name {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .print-btn {
+      margin-top: 20px;
+      background-color: white;
+      color: var(--primary-color);
+      border: none;
+    }
+
+    .print-btn:hover {
+      background-color: #f8f9fa;
+      color: var(--primary-dark);
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .confirmation-card, .confirmation-card * {
+        visibility: visible;
+      }
+      .confirmation-card {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+      }
+      .print-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header py-3">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <img src="logo.jpg" alt="Hospital Logo" class="logo">
+          <h1 class="hospital-title mb-0 ms-3">TRINITY CARE HOSPITAL</h1>
+        </div>
+        <div class="col-4 text-end">
+        <a href="index.html" class="btn btn-light fw-semibold" style="background-color: #ffffff; color: #651f57; border: none;">
+          <i class="fas fa-tachometer-alt me-2"></i> Go Back
+        </a>
+      </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container py-4">
+    <h2 class="mb-4"><i class="fas fa-calendar-check me-2"></i>Book an Appointment</h2>
+    
+    <div class="appointment-container">
+      <form id="appointmentForm">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" pattern="[0-9]{10}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="dob" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Appointment Date</label>
+            <input type="date" class="form-control" id="appointmentDate" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Preferred Time</label>
+            <input type="time" class="form-control" id="appointmentTime" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Department</label>
+          <select class="form-select" id="department" required>
+            <option value="">Select Department</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Neurology">Neurology</option>
+            <option value="Orthopedics">Orthopedics</option>
+            <option value="Pediatrics">Pediatrics</option>
+            <option value="Dermatology">Dermatology</option>
+            <option value="General Medicine">General Medicine</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Doctor</label>
+          <select class="form-select" id="doctor" required>
+            <option value="">Select Doctor</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Reason for Visit</label>
+          <textarea class="form-control" id="reason" rows="3"></textarea>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+          <button type="reset" class="btn btn-secondary me-3">Reset</button>
+          <button type="submit" class="btn btn-primary">Book Appointment</button>
+        </div>
+      </form>
+
+      <!-- Confirmation Section (initially hidden) -->
+      <div id="confirmationSection" class="confirmation-card d-none">
+        <div class="confirmation-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Appointment Confirmed!</h3>
+        <div class="patient-name" id="confirmedPatientName"></div>
+        <div class="slot-number" id="slotNumber"></div>
+        <p>Your appointment details have been sent to your email.</p>
+        <p id="appointmentDetails"></p>
+        <button class="btn print-btn" onclick="window.print()">
+          <i class="fas fa-print me-2"></i>Print Confirmation
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Doctor data by department
+    const departmentDoctors = {
+      'Cardiology': [
+        { id: 'DOC-101', name: 'Dr. Sarah Johnson' },
+        { id: 'DOC-102', name: 'Dr. Michael Chen' },
+        { id: 'DOC-103', name: 'Dr. Robert Williams' }
+      ],
+      'Neurology': [
+        { id: 'DOC-201', name: 'Dr. Emily Park' },
+        { id: 'DOC-202', name: 'Dr. David Miller' },
+        { id: 'DOC-203', name: 'Dr. Lisa Rodriguez' }
+      ],
+      'Orthopedics': [
+        { id: 'DOC-301', name: 'Dr. James Wilson' },
+        { id: 'DOC-302', name: 'Dr. Priya Patel' },
+        { id: 'DOC-303', name: 'Dr. Kevin Brown' }
+      ],
+      'Pediatrics': [
+        { id: 'DOC-401', name: 'Dr. Anna Thompson' },
+        { id: 'DOC-402', name: 'Dr. Carlos Mendez' },
+        { id: 'DOC-403', name: 'Dr. Jennifer Lee' }
+      ],
+      'Dermatology': [
+        { id: 'DOC-501', name: 'Dr. Amanda Scott' },
+        { id: 'DOC-502', name: 'Dr. Ryan Kim' },
+        { id: 'DOC-503', name: 'Dr. Olivia Martin' }
+      ],
+      'General Medicine': [
+        { id: 'DOC-601', name: 'Dr. Richard Davis' },
+        { id: 'DOC-602', name: 'Dr. Susan Baker' },
+        { id: 'DOC-603', name: 'Dr. Thomas Clark' }
+      ]
+    };
+
+    // Populate doctors based on selected department
+    document.getElementById('department').addEventListener('change', function() {
+      const doctorSelect = document.getElementById('doctor');
+      doctorSelect.innerHTML = '<option value="">Select Doctor</option>';
+      
+      const selectedDept = this.value;
+      if (selectedDept && departmentDoctors[selectedDept]) {
+        departmentDoctors[selectedDept].forEach(doctor => {
+          const option = document.createElement('option');
+          option.value = doctor.id;
+          option.textContent = doctor.name;
+          doctorSelect.appendChild(option);
+        });
+      }
+    });
+
+    // Form submission
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Validate phone number
+      const phone = document.getElementById('phone').value.trim();
+      if (!/^\d{10}$/.test(phone)) {
+        alert('Please enter a valid 10-digit phone number');
+        return;
+      }
+      
+      // Validate appointment date (not in past)
+      const appointmentDate = new Date(document.getElementById('appointmentDate').value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      if (appointmentDate < today) {
+        alert('Appointment date cannot be in the past');
+        return;
+      }
+      
+      // Generate slot number
+      const slotNumber = 'TCH-' + Math.floor(Math.random() * 9000 + 1000);
+      
+      // Get patient name
+      const patientName = document.getElementById('fullName').value;
+      
+      // Get appointment details
+      const department = document.getElementById('department').value;
+      const doctorId = document.getElementById('doctor').value;
+      const doctorName = document.getElementById('doctor').options[document.getElementById('doctor').selectedIndex].text;
+      const appointmentDateStr = document.getElementById('appointmentDate').value;
+      const appointmentTime = document.getElementById('appointmentTime').value;
+      
+      // Format date for display
+      const formattedDate = new Date(appointmentDateStr).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      
+      // Show confirmation
+      document.getElementById('confirmationSection').classList.remove('d-none');
+      document.getElementById('confirmedPatientName').textContent = patientName;
+      document.getElementById('slotNumber').textContent = slotNumber;
+      
+      document.getElementById('appointmentDetails').innerHTML = `
+        <p><strong>Department:</strong> ${department}</p>
+        <p><strong>Doctor:</strong> ${doctorName}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time:</strong> ${appointmentTime}</p>
+      `;
+      
+      // Scroll to confirmation
+      document.getElementById('confirmationSection').scrollIntoView({
+        behavior: 'smooth'
+      });
+      
+      // Hide the form
+      document.getElementById('appointmentForm').classList.add('d-none');
+    });
+  </script>
+</body>
+</html>

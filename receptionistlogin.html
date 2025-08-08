@@ -217,6 +217,7 @@
   <!-- Custom Script -->
   <script>
     document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevent default form submission
       let isValid = true;
 
       const username = document.getElementById("username").value.trim();
@@ -225,34 +226,50 @@
       const usernameError = document.getElementById("usernameError");
       const passwordError = document.getElementById("passwordError");
 
+      // Clear previous errors
       usernameError.textContent = "";
       passwordError.textContent = "";
 
+      // Username validation
       if (username === "") {
         usernameError.textContent = "Username is required.";
         isValid = false;
-      } else if (username.toLowerCase() !== "receptionist") {
-        usernameError.textContent = "Invalid username.";
+      } else if (username !== "receptionist") {
+        usernameError.textContent = "Invalid Username";
         isValid = false;
       }
 
+      // Password validation
       if (password === "") {
         passwordError.textContent = "Password is required.";
         isValid = false;
       } else if (password !== "receptionist") {
-        passwordError.textContent = "Invalid password.";
+        passwordError.textContent = "Invalid Password";
         isValid = false;
       }
 
-      if (!isValid) {
-        e.preventDefault(); // Prevent form submission if invalid
+      // If valid, redirect to receptionist.html
+      if (isValid) {
+        window.location.href = "receptionist.html";
       }
     });
 
-    document.querySelector(".forgot-link").addEventListener("click", function(e) {
-      e.preventDefault();
-      alert("For receptionist access:\nUsername: receptionist\nPassword: receptionist@123");
+    // Add demo credentials hints
+    document.addEventListener("DOMContentLoaded", function() {
+      // Add demo hint under username field
+      const usernameField = document.getElementById("username");
+      const usernameDemo = document.createElement("small");
+      usernameDemo.className = "form-text text-muted";
+      usernameDemo.textContent = "Demo: receptionist";
+      usernameField.parentNode.appendChild(usernameDemo);
+      
+      // Add demo hint under password field
+      const passwordField = document.getElementById("password");
+      const passwordDemo = document.createElement("small");
+      passwordDemo.className = "form-text text-muted";
+      passwordDemo.textContent = "Demo: receptionist";
+      passwordField.parentNode.appendChild(passwordDemo);
     });
-  </script>
+</script>
 </body>
 </html>
