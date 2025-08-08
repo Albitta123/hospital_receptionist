@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Patient - Trinity Care Hospital</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #651f57;
+      --primary-dark: #521847;
+      --danger-color: #dc3545;
+      --danger-dark: #bb2d3b;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+    }
+
+    .hospital-title {
+      font-weight: 600;
+    }
+
+    .search-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .patient-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 25px;
+      margin-top: 30px;
+      border-left: 5px solid var(--primary-color);
+    }
+
+    .patient-card h4 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .info-label {
+      font-weight: 500;
+      color: #6c757d;
+    }
+
+    .info-value {
+      font-weight: 500;
+    }
+
+    .badge-id {
+      background-color: var(--primary-dark);
+      font-weight: 500;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+
+    .btn-edit {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+    }
+
+    .btn-edit:hover {
+      background-color: var(--primary-dark);
+      color: white;
+    }
+
+    .btn-disable {
+      background-color: var(--danger-color);
+      color: white;
+      border: none;
+    }
+
+    .btn-disable:hover {
+      background-color: var(--danger-dark);
+      color: white;
+    }
+
+    .btn-back {
+      background-color: #6c757d;
+      color: white;
+      border: none;
+    }
+
+    .btn-back:hover {
+      background-color: #5c636a;
+      color: white;
+    }
+
+    .edit-options {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .edit-option {
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      background-color: var(--primary-color);
+      color: white;
+      margin-top: auto;
+    }
+
+    .no-patient {
+      text-align: center;
+      padding: 40px;
+      color: #6c757d;
+    }
+
+    .no-patient i {
+      font-size: 3rem;
+      color: var(--danger-color);
+      margin-bottom: 15px;
+    }
+
+    .search-tabs .nav-link {
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      margin-right: 5px;
+    }
+
+    .search-tabs .nav-link.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-logout {
+      background-color: var(--danger-color);
+      color: white;
+      border: none;
+    }
+
+    .btn-logout:hover {
+      background-color: var(--danger-dark);
+    }
+
+    .logout-modal .modal-content {
+      border: none;
+      border-radius: 15px;
+    }
+
+    .logout-modal .modal-header {
+      border-bottom: none;
+      justify-content: center;
+    }
+
+    .logout-modal .modal-body {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .logout-icon {
+      font-size: 4rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    /* New appointment button styles */
+    .appointment-container {
+      background-color: var(--primary-color);
+      padding: 10px 0;
+      margin-bottom: 20px;
+    }
+
+    .appointment-button {
+      background-color: white;
+      color: var(--primary-color);
+      border: 2px solid white;
+      font-weight: 500;
+    }
+
+    .appointment-button:hover {
+      background-color: var(--primary-dark);
+      color: white;
+      border-color: white;
+    }
+
+    /* Initially hidden elements */
+    .initially-hidden {
+      display: none;
+    }
+
+    @media (max-width: 767.98px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .header-buttons {
+        margin-top: 15px;
+        justify-content: center;
+        width: 100%;
+      }
+      
+      .search-container, .patient-card {
+        padding: 20px;
+      }
+      
+      .action-buttons .btn {
+        width: 100%;
+      }
+      
+      .search-tabs .nav-link {
+        margin-bottom: 5px;
+        margin-right: 0;
+      }
+
+      .appointment-container .d-flex {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .appointment-container .ms-auto {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header py-3">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center header-content">
+        <div class="d-flex align-items-center">
+          <img src="logo.jpg" alt="Hospital Logo" class="logo">
+          <h1 class="hospital-title mb-0 ms-3">TRINITY CARE HOSPITAL</h1>
+        </div>
+        <div class="header-buttons">
+          <a href="patient-list.html" class="btn btn-light">
+            <i class="fas fa-list me-1"></i> Patient List
+          </a>
+          <button class="btn btn-logout initially-hidden" id="logoutButton" data-bs-toggle="modal" data-bs-target="#logoutModal">
+            <i class="fas fa-sign-out-alt me-1"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Appointment Button Section (Initially Hidden) -->
+  <div class="appointment-container initially-hidden" id="appointmentContainer">
+    <div class="container d-flex justify-content-end">
+      <a href="Appointment.html" class="btn appointment-button">
+        <i class="fas fa-calendar-check me-2"></i> Book an Appointment
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container py-4 flex-grow-1">
+    <div class="search-container">
+      <h3 class="search-title"><i class="fas fa-search me-2"></i>Search Patient</h3>
+      
+      <!-- Search Tabs -->
+      <ul class="nav nav-tabs search-tabs mb-4" id="searchTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="regno-tab" data-bs-toggle="tab" data-bs-target="#regno-tab-pane" type="button" role="tab">
+            <i class="fas fa-id-card me-1"></i> Registration No.
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="phone-tab" data-bs-toggle="tab" data-bs-target="#phone-tab-pane" type="button" role="tab">
+            <i class="fas fa-phone me-1"></i> Phone Number
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="name-tab" data-bs-toggle="tab" data-bs-target="#name-tab-pane" type="button" role="tab">
+            <i class="fas fa-user me-1"></i> Name
+          </button>
+        </li>
+      </ul>
+      
+      <!-- Search Tab Content -->
+      <div class="tab-content" id="searchTabContent">
+        <!-- Registration Number Search -->
+        <div class="tab-pane fade show active" id="regno-tab-pane" role="tabpanel" aria-labelledby="regno-tab">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="regNoInput" placeholder="Enter Patient Registration Number (e.g. PAT-1001)">
+                <button class="btn btn-primary" type="button" id="regNoSearchBtn">
+                  <i class="fas fa-search me-1"></i> Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Phone Number Search -->
+        <div class="tab-pane fade" id="phone-tab-pane" role="tabpanel" aria-labelledby="phone-tab">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="input-group mb-3">
+                <input type="tel" class="form-control" id="phoneInput" placeholder="Enter Patient Phone Number">
+                <button class="btn btn-primary" type="button" id="phoneSearchBtn">
+                  <i class="fas fa-search me-1"></i> Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Name Search -->
+        <div class="tab-pane fade" id="name-tab-pane" role="tabpanel" aria-labelledby="name-tab">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="nameInput" placeholder="Enter Patient Name">
+                <button class="btn btn-primary" type="button" id="nameSearchBtn">
+                  <i class="fas fa-search me-1"></i> Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient Details Card (Initially Hidden) -->
+    <div class="patient-card" id="patientDetailsCard" style="display: none;">
+      <h4>Patient Details</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <div class="info-label">Registration Number</div>
+            <div class="info-value badge badge-id" id="patientRegNo">PAT-1001</div>
+          </div>
+          <div class="mb-3">
+            <div class="info-label">Full Name</div>
+            <div class="info-value" id="patientName">John Smith</div>
+          </div>
+          <div class="mb-3">
+            <div class="info-label">Date of Birth</div>
+            <div class="info-value" id="patientDob">15/03/1988</div>
+          </div>
+          <div class="mb-3">
+            <div class="info-label">Age</div>
+            <div class="info-value" id="patientAge">35</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <div class="info-label">Gender</div>
+            <div class="info-value" id="patientGender">Male</div>
+          </div>
+          <div class="mb-3">
+            <div class="info-label">Blood Group</div>
+            <div class="info-value" id="patientBlood">A+</div>
+          </div>
+          <div class="mb-3">
+            <div class="info-label">Phone Number</div>
+            <div class="info-value" id="patientPhone">+1 555-123-4567</div>
+          </div>
+          <div class="mb-3">
+            <div class="info-label">Address</div>
+            <div class="info-value" id="patientAddress">123 Main St, Anytown, USA</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-edit" id="editButton">
+          <i class="fas fa-edit me-1"></i> Edit Patient
+        </button>
+        <button class="btn btn-disable" id="disableButton">
+          <i class="fas fa-user-slash me-1"></i> Disable Patient
+        </button>
+        <button class="btn btn-back" id="backButton">
+          <i class="fas fa-times me-1"></i> Go Back
+        </button>
+      </div>
+
+      <!-- Edit Options (Initially Hidden) -->
+      <div class="edit-options" id="editOptions" style="display: none;">
+        <h5>Which field do you want to edit?</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="edit-option mb-2">
+              <button class="btn btn-outline-primary btn-sm w-100" onclick="showEditField('name')">
+                <i class="fas fa-user me-1"></i> Name
+              </button>
+            </div>
+            <div class="edit-option mb-2">
+              <button class="btn btn-outline-primary btn-sm w-100" onclick="showEditField('dob')">
+                <i class="fas fa-calendar me-1"></i> Date of Birth
+              </button>
+            </div>
+            <div class="edit-option mb-2">
+              <button class="btn btn-outline-primary btn-sm w-100" onclick="showEditField('gender')">
+                <i class="fas fa-venus-mars me-1"></i> Gender
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="edit-option mb-2">
+              <button class="btn btn-outline-primary btn-sm w-100" onclick="showEditField('blood')">
+                <i class="fas fa-tint me-1"></i> Blood Group
+              </button>
+            </div>
+            <div class="edit-option mb-2">
+              <button class="btn btn-outline-primary btn-sm w-100" onclick="showEditField('phone')">
+                <i class="fas fa-phone me-1"></i> Phone
+              </button>
+            </div>
+            <div class="edit-option mb-2">
+              <button class="btn btn-outline-primary btn-sm w-100" onclick="showEditField('address')">
+                <i class="fas fa-home me-1"></i> Address
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Edit Form (Dynamically Shown) -->
+        <div id="editFormContainer" style="display: none; margin-top: 15px;">
+          <form id="editForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3" id="nameField" style="display: none;">
+                  <label for="editName" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="editName">
+                </div>
+                <div class="mb-3" id="dobField" style="display: none;">
+                  <label for="editDob" class="form-label">Date of Birth</label>
+                  <input type="date" class="form-control" id="editDob">
+                </div>
+                <div class="mb-3" id="genderField" style="display: none;">
+                  <label class="form-label">Gender</label>
+                  <div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="editGender" id="editGenderMale" value="Male">
+                      <label class="form-check-label" for="editGenderMale">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="editGender" id="editGenderFemale" value="Female">
+                      <label class="form-check-label" for="editGenderFemale">Female</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3" id="bloodField" style="display: none;">
+                  <label for="editBlood" class="form-label">Blood Group</label>
+                  <select class="form-select" id="editBlood">
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+                <div class="mb-3" id="phoneField" style="display: none;">
+                  <label for="editPhone" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="editPhone">
+                </div>
+                <div class="mb-3" id="addressField" style="display: none;">
+                  <label for="editAddress" class="form-label">Address</label>
+                  <textarea class="form-control" id="editAddress" rows="2"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-3">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="cancelEdit()">
+                <i class="fas fa-times me-1"></i> Cancel
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="saveEdit()">
+                <i class="fas fa-save me-1"></i> Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Patient Found Message (Initially Hidden) -->
+    <div class="no-patient" id="noPatientMessage" style="display: none;">
+      <i class="fas fa-user-times"></i>
+      <h4>Sorry, there is no such patient</h4>
+      <p>Please check your search criteria and try again.</p>
+      <button class="btn btn-primary mt-3" onclick="resetSearch()">
+        <i class="fas fa-redo me-1"></i> Try Again
+      </button>
+    </div>
+  </div>
+
+  <!-- Logout Modal -->
+  <div class="modal fade logout-modal" id="logoutModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <i class="fas fa-check-circle logout-icon"></i>
+          <h3>Thank You</h3>
+          <p>Visit again!</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-primary" onclick="performLogout()">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer py-3">
+    <div class="container">
+      <p class="mb-0 text-center">&copy; 2023 Trinity Care Hospital. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Current patient being viewed/edited
+    let currentPatient = null;
+    let currentPatientId = null; // Track the patient ID separately
+    let currentField = null;
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize sample data if none exists
+      if (!localStorage.getItem('patients')) {
+        const samplePatients = {
+          'PAT-1001': {
+            name: 'John Smith',
+            dob: '1988-03-15',
+            age: 35,
+            gender: 'Male',
+            blood: 'A+',
+            phone: '+1 555-123-4567',
+            address: '123 Main St, Anytown, USA',
+            status: 'active'
+          },
+          'PAT-1002': {
+            name: 'Emily Johnson',
+            dob: '1995-07-22',
+            age: 28,
+            gender: 'Female',
+            blood: 'B-',
+            phone: '+1 555-234-5678',
+            address: '456 Oak Ave, Somewhere, USA',
+            status: 'active'
+          },
+          'PAT-1003': {
+            name: 'Michael Brown',
+            dob: '1981-11-10',
+            age: 42,
+            gender: 'Male',
+            blood: 'O+',
+            phone: '+1 555-345-6789',
+            address: '789 Pine Rd, Nowhere, USA',
+            status: 'active'
+          },
+          'PAT-1004': {
+            name: 'Sarah Williams',
+            dob: '1992-09-05',
+            age: 31,
+            gender: 'Female',
+            blood: 'AB+',
+            phone: '+1 555-456-7890',
+            address: '321 Elm St, Anywhere, USA',
+            status: 'active'
+          },
+          'PAT-1005': {
+            name: 'David Miller',
+            dob: '1967-01-30',
+            age: 56,
+            gender: 'Male',
+            blood: 'A-',
+            phone: '+1 555-567-8901',
+            address: '654 Maple Dr, Everywhere, USA',
+            status: 'active'
+          }
+        };
+        localStorage.setItem('patients', JSON.stringify(samplePatients));
+      }
+
+      // Search button click handlers
+      document.getElementById('regNoSearchBtn').addEventListener('click', () => searchPatient('regNo'));
+      document.getElementById('phoneSearchBtn').addEventListener('click', () => searchPatient('phone'));
+      document.getElementById('nameSearchBtn').addEventListener('click', () => searchPatient('name'));
+      
+      // Enter key in search inputs
+      document.getElementById('regNoInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchPatient('regNo');
+      });
+      document.getElementById('phoneInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchPatient('phone');
+      });
+      document.getElementById('nameInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchPatient('name');
+      });
+      
+      // Edit button click handler
+      document.getElementById('editButton').addEventListener('click', showEditOptions);
+      
+      // Disable button click handler
+      document.getElementById('disableButton').addEventListener('click', disablePatient);
+      
+      // Back button click handler
+      document.getElementById('backButton').addEventListener('click', resetSearch);
+    });
+
+    // Search for a patient by different criteria
+    function searchPatient(searchType) {
+      let searchValue;
+      const patients = JSON.parse(localStorage.getItem('patients')) || {};
+      let foundPatient = null;
+      let foundPatientId = null;
+      
+      switch(searchType) {
+        case 'regNo':
+          searchValue = document.getElementById('regNoInput').value.trim().toUpperCase();
+          if (!searchValue) {
+            alert('Please enter a registration number');
+            return;
+          }
+          if (patients[searchValue]) {
+            foundPatient = patients[searchValue];
+            foundPatientId = searchValue;
+          }
+          break;
+          
+        case 'phone':
+          searchValue = document.getElementById('phoneInput').value.trim();
+          if (!searchValue) {
+            alert('Please enter a phone number');
+            return;
+          }
+          // Search through all patients for matching phone
+          for (const [id, patient] of Object.entries(patients)) {
+            if (patient.phone && patient.phone.includes(searchValue)) {
+              foundPatient = patient;
+              foundPatientId = id;
+              break;
+            }
+          }
+          break;
+          
+        case 'name':
+          searchValue = document.getElementById('nameInput').value.trim().toLowerCase();
+          if (!searchValue) {
+            alert('Please enter a name');
+            return;
+          }
+          // Search through all patients for matching name
+          for (const [id, patient] of Object.entries(patients)) {
+            if (patient.name && patient.name.toLowerCase().includes(searchValue)) {
+              foundPatient = patient;
+              foundPatientId = id;
+              break;
+            }
+          }
+          break;
+      }
+      
+      // Hide both cards initially
+      document.getElementById('patientDetailsCard').style.display = 'none';
+      document.getElementById('noPatientMessage').style.display = 'none';
+      
+      if (foundPatient && foundPatient.status !== 'disabled') {
+        currentPatient = foundPatient;
+        currentPatientId = foundPatientId;
+        displayPatientDetails();
+        document.getElementById('patientDetailsCard').style.display = 'block';
+        // Show appointment and logout buttons
+        document.getElementById('appointmentContainer').classList.remove('initially-hidden');
+        document.getElementById('logoutButton').classList.remove('initially-hidden');
+      } else {
+        document.getElementById('noPatientMessage').style.display = 'block';
+        // Keep them hidden if no patient found
+        document.getElementById('appointmentContainer').classList.add('initially-hidden');
+        document.getElementById('logoutButton').classList.add('initially-hidden');
+      }
+    }
+
+    // Display patient details in the card
+    function displayPatientDetails() {
+      document.getElementById('patientRegNo').textContent = currentPatientId;
+      document.getElementById('patientName').textContent = currentPatient.name;
+      document.getElementById('patientDob').textContent = formatDate(currentPatient.dob);
+      document.getElementById('patientAge').textContent = currentPatient.age;
+      document.getElementById('patientGender').textContent = currentPatient.gender;
+      document.getElementById('patientBlood').textContent = currentPatient.blood;
+      document.getElementById('patientPhone').textContent = currentPatient.phone;
+      document.getElementById('patientAddress').textContent = currentPatient.address;
+      
+      // Hide edit options if they were shown
+      document.getElementById('editOptions').style.display = 'none';
+    }
+
+    // Show edit options for the patient
+    function showEditOptions() {
+      document.getElementById('editOptions').style.display = 'block';
+      document.getElementById('editFormContainer').style.display = 'none';
+    }
+
+    // Show the specific field to edit
+    function showEditField(field) {
+      currentField = field;
+      
+      // Hide all fields first
+      document.querySelectorAll('#editFormContainer > form > div > div > div').forEach(el => {
+        el.style.display = 'none';
+      });
+      
+      // Show the selected field
+      document.getElementById(field + 'Field').style.display = 'block';
+      
+      // Set current value in the field
+      switch(field) {
+        case 'name':
+          document.getElementById('editName').value = currentPatient.name;
+          break;
+        case 'dob':
+          document.getElementById('editDob').value = currentPatient.dob;
+          break;
+        case 'gender':
+          document.querySelector(`input[name="editGender"][value="${currentPatient.gender}"]`).checked = true;
+          break;
+        case 'blood':
+          document.getElementById('editBlood').value = currentPatient.blood;
+          break;
+        case 'phone':
+          document.getElementById('editPhone').value = currentPatient.phone;
+          break;
+        case 'address':
+          document.getElementById('editAddress').value = currentPatient.address;
+          break;
+      }
+      
+      document.getElementById('editFormContainer').style.display = 'block';
+    }
+
+    // Save the edited field
+    function saveEdit() {
+      let newValue;
+      const patients = JSON.parse(localStorage.getItem('patients')) || {};
+      
+      // Verify the patient exists
+      if (!patients[currentPatientId]) {
+        alert('Patient not found!');
+        return;
+      }
+
+      // Update the specific field
+      switch(currentField) {
+        case 'name':
+          newValue = document.getElementById('editName').value.trim();
+          if (!newValue) {
+            alert('Name cannot be empty');
+            return;
+          }
+          patients[currentPatientId].name = newValue;
+          break;
+        case 'dob':
+          newValue = document.getElementById('editDob').value;
+          if (!newValue) {
+            alert('Please select a date of birth');
+            return;
+          }
+          patients[currentPatientId].dob = newValue;
+          // Update age based on new DOB
+          const dobDate = new Date(newValue);
+          const ageDiff = Date.now() - dobDate.getTime();
+          const ageDate = new Date(ageDiff);
+          patients[currentPatientId].age = Math.abs(ageDate.getUTCFullYear() - 1970);
+          break;
+        case 'gender':
+          newValue = document.querySelector('input[name="editGender"]:checked').value;
+          patients[currentPatientId].gender = newValue;
+          break;
+        case 'blood':
+          newValue = document.getElementById('editBlood').value;
+          patients[currentPatientId].blood = newValue;
+          break;
+        case 'phone':
+          newValue = document.getElementById('editPhone').value.trim();
+          if (!newValue) {
+            alert('Phone number cannot be empty');
+            return;
+          }
+          patients[currentPatientId].phone = newValue;
+          break;
+        case 'address':
+          newValue = document.getElementById('editAddress').value.trim();
+          if (!newValue) {
+            alert('Address cannot be empty');
+            return;
+          }
+          patients[currentPatientId].address = newValue;
+          break;
+      }
+      
+      // Save back to localStorage
+      localStorage.setItem('patients', JSON.stringify(patients));
+      
+      // Update the current patient object
+      currentPatient = patients[currentPatientId];
+      
+      // Update the displayed details
+      displayPatientDetails();
+      
+      // Hide the edit form
+      document.getElementById('editFormContainer').style.display = 'none';
+      
+      // Show success message
+      alert('Patient details updated successfully! Changes will reflect in the patient list.');
+    }
+
+    // Cancel editing
+    function cancelEdit() {
+      document.getElementById('editFormContainer').style.display = 'none';
+    }
+
+    // Disable the patient
+    function disablePatient() {
+      if (confirm('Are you sure you want to disable this patient record?')) {
+        const patients = JSON.parse(localStorage.getItem('patients')) || {};
+        patients[currentPatientId].status = 'disabled';
+        localStorage.setItem('patients', JSON.stringify(patients));
+        alert('Patient has been disabled and will no longer appear in lists');
+        resetSearch();
+      }
+    }
+
+    // Reset the search
+    function resetSearch() {
+      // Clear all search inputs
+      document.getElementById('regNoInput').value = '';
+      document.getElementById('phoneInput').value = '';
+      document.getElementById('nameInput').value = '';
+      
+      // Hide patient details and messages
+      document.getElementById('patientDetailsCard').style.display = 'none';
+      document.getElementById('noPatientMessage').style.display = 'none';
+      document.getElementById('editOptions').style.display = 'none';
+      document.getElementById('editFormContainer').style.display = 'none';
+      
+      // Hide appointment and logout buttons
+      document.getElementById('appointmentContainer').classList.add('initially-hidden');
+      document.getElementById('logoutButton').classList.add('initially-hidden');
+      
+      // Reset current patient
+      currentPatient = null;
+      currentPatientId = null;
+      currentField = null;
+    }
+
+    // Perform logout action
+    function performLogout() {
+      // Close the modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('logoutModal'));
+      modal.hide();
+      
+      // Redirect to index page after a short delay
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 500);
+    }
+
+    // Helper function to format date
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-GB'); // DD/MM/YYYY format
+    }
+  </script>
+</body>
+</html>

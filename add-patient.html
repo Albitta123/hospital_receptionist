@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Patient - Trinity Care Hospital</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #651f57;
+      --primary-dark: #521847;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                      url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      width: 60px;
+      height: 50px;
+    }
+
+    .hospital-title {
+      margin-left: 260px;
+      font-weight: 600;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    .form-header {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    .btn-outline-primary {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1100;
+    }
+
+    .patient-details {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .detail-row {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 20px;
+        margin: 20px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header py-3">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <img src="logo.jpg" alt="Hospital Logo" class="logo" style="height: 60px;">
+      </div>
+      <div class="col text-center">
+        <h1 class="hospital-title text-uppercase mb-0">Trinity Care Hospital</h1>
+      </div>
+      <div class="col-4 text-end">
+        <a href="receptionist.html" class="btn btn-light fw-semibold" style="background-color: #ffffff; color: #651f57; border: none;">
+          <i class="fas fa-tachometer-alt me-2"></i> Go Back
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <main class="flex-grow-1">
+    <div class="container">
+      <div class="form-container">
+        <h3 class="form-header">Add New Patient</h3>
+        
+        <!-- Patient Form -->
+        <form id="patientForm" novalidate>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="fullName" class="form-label">Full Name*</label>
+              <input type="text" class="form-control" id="fullName" required>
+              <div class="error-message" id="nameError"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="dob" class="form-label">Date of Birth*</label>
+              <input type="date" class="form-control" id="dob" required>
+              <div class="error-message" id="dobError"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="age" class="form-label">Age*</label>
+              <input type="number" class="form-control" id="age" required>
+              <div class="error-message" id="ageError"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="bloodGroup" class="form-label">Blood Group*</label>
+              <select class="form-select" id="bloodGroup" required>
+                <option value="">Select Blood Group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+              <div class="error-message" id="bloodError"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="phone" class="form-label">Phone Number*</label>
+              <input type="tel" class="form-control" id="phone" required>
+              <div class="error-message" id="phoneError"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="gender" class="form-label">Gender*</label>
+              <select class="form-select" id="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="error-message" id="genderError"></div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Address*</label>
+            <textarea class="form-control" id="address" rows="3" required></textarea>
+            <div class="error-message" id="addressError"></div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-primary" onclick="window.location.href='patient-list.html'">
+              <i class="fas fa-arrow-left me-2"></i> View Patient List
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save me-2"></i> Submit
+            </button>
+          </div>
+        </form>
+        
+        <!-- Patient Details Display (hidden by default) -->
+        <div class="patient-details d-none" id="patientDetailsCard">
+          <h4 class="text-center mb-4" style="color: var(--primary-color);">Patient Registered Successfully</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="detail-row">
+                <span class="detail-label">Patient ID:</span>
+                <span id="displayId"></span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Full Name:</span>
+                <span id="displayName"></span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Date of Birth:</span>
+                <span id="displayDob"></span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Age:</span>
+                <span id="displayAge"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="detail-row">
+                <span class="detail-label">Gender:</span>
+                <span id="displayGender"></span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Blood Group:</span>
+                <span id="displayBlood"></span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Phone Number:</span>
+                <span id="displayPhone"></span>
+              </div>
+            </div>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Address:</span>
+            <span id="displayAddress"></span>
+          </div>
+          <div class="d-flex justify-content-between mt-4">
+            <button type="button" class="btn btn-outline-primary" onclick="window.location.href='patient-list.html'">
+              <i class="fas fa-list me-2"></i> View Patient List
+            </button>
+            <button type="button" class="btn btn-primary" onclick="resetForm()">
+              <i class="fas fa-user-plus me-2"></i> Add Another Patient
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p class="mb-0">&copy; 2023 Trinity Care Hospital. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast-container">
+    <div class="toast align-items-center text-white bg-success" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">Patient added successfully!</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('patientForm');
+      const toast = new bootstrap.Toast(document.getElementById('successToast'));
+
+      // Initialize patient data in localStorage if not exists
+      if (!localStorage.getItem('patients')) {
+        const initialPatients = {
+          'PAT-1001': {
+            name: 'John Smith',
+            dob: '1988-03-15',
+            age: 35,
+            gender: 'Male',
+            blood: 'A+',
+            phone: '+1 555-123-4567',
+            address: '123 Main St, Anytown, USA'
+          },
+          'PAT-1002': {
+            name: 'Emily Johnson',
+            dob: '1995-07-22',
+            age: 28,
+            gender: 'Female',
+            blood: 'B-',
+            phone: '+1 555-234-5678',
+            address: '456 Oak Ave, Somewhere, USA'
+          },
+          'PAT-1003': {
+            name: 'Michael Brown',
+            dob: '1981-11-10',
+            age: 42,
+            gender: 'Male',
+            blood: 'O+',
+            phone: '+1 555-345-6789',
+            address: '789 Pine Rd, Nowhere, USA'
+          },
+          'PAT-1004': {
+            name: 'Sarah Williams',
+            dob: '1992-09-05',
+            age: 31,
+            gender: 'Female',
+            blood: 'AB+',
+            phone: '+1 555-456-7890',
+            address: '321 Elm St, Anywhere, USA'
+          },
+          'PAT-1005': {
+            name: 'David Miller',
+            dob: '1967-01-30',
+            age: 56,
+            gender: 'Male',
+            blood: 'A-',
+            phone: '+1 555-567-8901',
+            address: '654 Maple Dr, Everywhere, USA'
+          }
+        };
+        localStorage.setItem('patients', JSON.stringify(initialPatients));
+      }
+
+      // Auto-calculate age from DOB
+      document.getElementById('dob').addEventListener('change', function() {
+        const dob = new Date(this.value);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const monthDiff = today.getMonth() - dob.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+          age--;
+        }
+        
+        document.getElementById('age').value = age > 0 ? age : '';
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+        let isValid = true;
+const fullName = document.getElementById('fullName').value.trim();
+const nameError = document.getElementById('nameError');
+
+if (!fullName) {
+  nameError.textContent = 'Full name is required';
+  isValid = false;
+} else if (fullName.length < 3) {
+  nameError.textContent = 'Name must be at least 3 characters';
+  isValid = false;
+} else if (!/^[a-zA-Z\s]+$/.test(fullName)) {
+  nameError.textContent = 'Only alphabets and spaces allowed';
+  isValid = false;
+} else {
+  nameError.textContent = '';
+}
+
+
+        const dob = document.getElementById('dob').value;
+        if (!dob) {
+          document.getElementById('dobError').textContent = 'Date of birth is required';
+          isValid = false;
+        }
+
+        const age = document.getElementById('age').value;
+        if (!age) {
+          document.getElementById('ageError').textContent = 'Age is required';
+          isValid = false;
+        } else if (age < 1 || age > 150) {
+          document.getElementById('ageError').textContent = 'Age must be between 1 and 150';
+          isValid = false;
+        }
+
+        const bloodGroup = document.getElementById('bloodGroup').value;
+        if (!bloodGroup) {
+          document.getElementById('bloodError').textContent = 'Blood group is required';
+          isValid = false;
+        }
+
+        const gender = document.getElementById('gender').value;
+        if (!gender) {
+          document.getElementById('genderError').textContent = 'Gender is required';
+          isValid = false;
+        }
+
+        const phone = document.getElementById('phone').value.trim();
+        if (!phone) {
+          document.getElementById('phoneError').textContent = 'Phone number is required';
+          isValid = false;
+        } else if (!/^\d{10}$/.test(phone)) {
+          document.getElementById('phoneError').textContent = 'Phone number must be 10 digits';
+          isValid = false;
+        }
+
+        const address = document.getElementById('address').value.trim();
+        if (!address) {
+          document.getElementById('addressError').textContent = 'Address is required';
+          isValid = false;
+        }
+
+        if (isValid) {
+          // Generate patient ID
+          const patients = JSON.parse(localStorage.getItem('patients'));
+          const patientIds = Object.keys(patients).map(id => parseInt(id.split('-')[1]));
+          const patientId = 'PAT-' + (Math.max(...patientIds) + 1);
+          
+          // Create patient object
+          const patient = {
+            name: fullName,
+            dob: dob,
+            age: age,
+            gender: gender,
+            blood: bloodGroup,
+            phone: phone,
+            address: address
+          };
+          
+          // Add to localStorage
+          patients[patientId] = patient;
+          localStorage.setItem('patients', JSON.stringify(patients));
+          
+          // Display success message
+          document.getElementById('displayId').textContent = patientId;
+          document.getElementById('displayName').textContent = fullName;
+          document.getElementById('displayDob').textContent = new Date(dob).toLocaleDateString();
+          document.getElementById('displayAge').textContent = age;
+          document.getElementById('displayGender').textContent = gender;
+          document.getElementById('displayBlood').textContent = bloodGroup;
+          document.getElementById('displayPhone').textContent = phone;
+          document.getElementById('displayAddress').textContent = address;
+          
+          form.classList.add('d-none');
+          document.getElementById('patientDetailsCard').classList.remove('d-none');
+          toast.show();
+        }
+      });
+    });
+
+    function resetForm() {
+      document.getElementById('patientForm').reset();
+      document.getElementById('patientForm').classList.remove('d-none');
+      document.getElementById('patientDetailsCard').classList.add('d-none');
+    }
+  </script>
+</body>
+</html>

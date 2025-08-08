@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trinity Care Hospital - Award-winning healthcare with NABH accreditation. Specializing in cardiology, neurology, and robotic surgery. Book your appointment today.">
+  <meta name="keywords" content="hospital, healthcare, medical, cardiology, neurology, surgery, NABH accredited, ISO certified, book appointment">
+  <meta name="author" content="Trinity Care Hospital">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Trinity Care Hospital | NABH Accredited Healthcare">
+  <meta property="og:description" content="Proclaiming the glory of God through quality compassionate healthcare services. Book your appointment today.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.trinitycarehospital.com">
+  <meta property="og:image" content="https://www.trinitycarehospital.com/images/hospital.jpg">
+  <link rel="canonical" href="https://www.trinitycarehospital.com">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <title>Trinity Care Hospital | NABH Accredited Multi-Specialty Hospital</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Hospital",
+      "name": "Trinity Care Hospital",
+      "description": "NABH accredited multi-specialty hospital providing world-class healthcare services",
+      "url": "https://www.trinitycarehospital.com",
+      "logo": "https://www.trinitycarehospital.com/images/logo.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Main Road",
+        "addressLocality": "City",
+        "addressRegion": "State",
+        "postalCode": "123456",
+        "addressCountry": "India"
+      },
+      "telephone": "+914852835343",
+      "openingHours": "24/7"
+    }
+  </script>
+
+  <style>
+    :root {
+      --primary-color: #651f57;
+      --primary-dark: #521847;
+      --secondary-color: #2c7873;
+      --light-color: #f8f9fa;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header Styles */
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      transition: transform 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .hospital-title {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Hero Section with 3D Effect */
+    .hero-container {
+      position: relative;
+      height: 70vh;
+      min-height: 500px;
+      overflow: hidden;
+      perspective: 1000px;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: rotateY(5deg) rotateX(2deg) scale(1.1);
+      filter: brightness(0.8) contrast(1.1);
+      transition: transform 0.8s ease, filter 0.8s ease;
+    }
+
+    .hero-container:hover .hero-image {
+      transform: rotateY(0) rotateX(0) scale(1);
+      filter: brightness(0.9) contrast(1);
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 2rem;
+      color: white;
+      transform: translateZ(50px);
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* Department Cards */
+    .department-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      height: 100%;
+      background: white;
+    }
+
+    .department-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    .department-img-container {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .department-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .department-card:hover .department-img {
+      transform: scale(1.05);
+    }
+
+    .department-title {
+      color: var(--primary-color);
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .department-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary-color);
+    }
+
+    /* Navigation Dropdown */
+    .login-dropdown .dropdown-menu {
+      min-width: 300px;
+      padding: 1rem;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .nav-divider {
+      border-left: 1px solid rgba(255,255,255,0.2);
+      height: 30px;
+      margin: 0 15px;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+      color: white;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.8);
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-container {
+        height: 60vh;
+        min-height: 400px;
+      }
+      .nav-divider {
+        display: none;
+      }
+      
+      /* Mobile-specific login button styles */
+      .navbar .btn-outline-light {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .navbar .btn-outline-light .fa-sign-in-alt {
+        margin-right: 0.25rem;
+      }
+      
+      .navbar-nav {
+        margin-top: 1rem;
+      }
+      
+      .header {
+        padding: 0.5rem 0;
+      }
+      
+      .hospital-title {
+        font-size: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      .hero-subtitle {
+        font-size: 0.9rem;
+      }
+      .hero-content .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header sticky-top py-2">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand d-flex align-items-center" href="#" aria-label="Trinity Care Hospital">
+            <img src="logo.jpg" alt="Trinity Care Logo" class="logo me-2">
+            <span class="hospital-title">TRINITY CARE HOSPITAL</span>
+          </a>
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="#" aria-current="page">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Facilities</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Doctors</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a></li>
+            </ul>
+            <a href="login.html" class="btn btn-outline-light ms-lg-3">
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-container" aria-label="Hospital Overview">
+    <img src="hospital.jpg" alt="Trinity Care Hospital Facility" class="hero-image">
+    <div class="hero-content">
+      <div class="container">
+        <h1 class="hero-title">Exceptional Care, Exceptional People</h1>
+        <p class="hero-subtitle">NABH Accredited | ISO Certified | 24/7 Emergency Services</p>
+        <a href="#" class="btn btn-primary btn-lg me-2"><i class="fas fa-calendar-alt me-2"></i>Book an Appointment</a>
+        <a href="#" class="btn btn-outline-light btn-lg"><i class="fas fa-phone-alt me-2"></i>Emergency</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main>
+    <!-- About Section -->
+    <section class="py-5 bg-light">
+      <div class="container py-4">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <h2 class="display-5 fw-bold mb-4" style="color: var(--primary-color);">About Trinity Care</h2>
+            <p class="lead">Proclaim the glory of God through quality based compassionate healthcare services, bearing witness to Christ.</p>
+            <p>Trinity Care Hospital is dedicated to delivering exceptional healthcare services through a team of skilled medical professionals and state-of-the-art facilities. Our mission is to ensure patient satisfaction by providing comprehensive medical care in a compassionate and technologically advanced environment.</p>
+            <div class="d-flex flex-wrap gap-2 mt-4">
+              <span class="badge bg-primary p-2">NABH Accredited</span>
+              <span class="badge bg-success p-2">ISO Certified</span>
+              <span class="badge bg-info p-2">24/7 Emergency</span>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="ratio ratio-16x9">
+              <image src="https://www.kimshealth.org/media/filer_public/25/0a/250addc7-f385-4332-9a37-0c2bcd9176a2/kimshealth_reseption-min.jpg" title="Hospital Tour" allowfullscreen class="rounded-3 shadow"></image>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- Responsive Departments Section with Controlled Image Sizing -->
+<section class="py-3">
+  <div class="container">
+    <div class="text-center mb-3">
+      <h3 class="fw-bold" style="color: var(--primary-color);">Our Specialized Departments</h3>
+      <p class="small text-muted">World-class healthcare services with compassionate care</p>
+    </div>
+    
+    <div class="row g-2">
+      <!-- Home Healthcare -->
+      <div class="col-md-4 col-sm-6">
+        <div class="department-card p-2 text-center h-100" 
+             style="transform: perspective(500px) rotateY(2deg); transition: all 0.3s ease; border: none; box-shadow: 3px 3px 10px rgba(0,0,0,0.08);">
+          <div class="department-img-container mb-1 mx-auto" style="width: 100%; max-width: 200px; height: 100px; overflow: hidden; border-radius: 6px;">
+            <img src="home.jpg" alt="Home Healthcare" class="img-fluid h-100 w-100 object-fit-cover" style="object-position: center;">
+          </div>
+          <h6 class="mb-1" style="font-size: 0.95rem;">Home Healthcare</h6>
+          <button class="btn btn-xs btn-outline-primary py-0" style="font-size: 0.8rem;">Explore</button>
+        </div>
+      </div>
+      
+      <!-- Repeat for other departments with same structure -->
+      <!-- General Medicine -->
+      <div class="col-md-4 col-sm-6">
+        <div class="department-card p-2 text-center h-100" 
+             style="transform: perspective(500px) rotateY(-2deg); transition: all 0.3s ease; border: none; box-shadow: 3px 3px 10px rgba(0,0,0,0.08);">
+          <div class="department-img-container mb-1 mx-auto" style="width: 100%; max-width: 200px; height: 100px; overflow: hidden; border-radius: 6px;">
+            <img src="general.avif" alt="General Medicine" class="img-fluid h-100 w-100 object-fit-cover" style="object-position: center;">
+          </div>
+          <h6 class="mb-1" style="font-size: 0.95rem;">General Medicine</h6>
+          <button class="btn btn-xs btn-outline-primary py-0" style="font-size: 0.8rem;">Explore</button>
+        </div>
+      </div>
+      
+      <!-- Gastrointestinal Sciences -->
+      <div class="col-md-4 col-sm-6">
+        <div class="department-card p-2 text-center h-100" 
+             style="transform: perspective(500px) rotateY(2deg); transition: all 0.3s ease; border: none; box-shadow: 3px 3px 10px rgba(0,0,0,0.08);">
+          <div class="department-img-container mb-1 mx-auto" style="width: 100%; max-width: 200px; height: 100px; overflow: hidden; border-radius: 6px;">
+            <img src="gastro.jpg" alt="Gastrointestinal Sciences" class="img-fluid h-100 w-100 object-fit-cover" style="object-position: center;">
+          </div>
+          <h6 class="mb-1" style="font-size: 0.95rem;">Gastrointestinal Sciences</h6>
+          <button class="btn btn-xs btn-outline-primary py-0" style="font-size: 0.8rem;">Explore</button>
+        </div>
+      </div>
+      
+      <!-- Cardiology -->
+      <div class="col-md-4 col-sm-6">
+        <div class="department-card p-2 text-center h-100" 
+             style="transform: perspective(500px) rotateY(-2deg); transition: all 0.3s ease; border: none; box-shadow: 3px 3px 10px rgba(0,0,0,0.08);">
+          <div class="department-img-container mb-1 mx-auto" style="width: 100%; max-width: 200px; height: 100px; overflow: hidden; border-radius: 6px;">
+            <img src="cardio.png" alt="Cardiology" class="img-fluid h-100 w-100 object-fit-cover" style="object-position: center;">
+          </div>
+          <h6 class="mb-1" style="font-size: 0.95rem;">Cardiology</h6>
+          <button class="btn btn-xs btn-outline-primary py-0" style="font-size: 0.8rem;">Explore</button>
+        </div>
+      </div>
+      
+      <!-- Neurology -->
+      <div class="col-md-4 col-sm-6">
+        <div class="department-card p-2 text-center h-100" 
+             style="transform: perspective(500px) rotateY(2deg); transition: all 0.3s ease; border: none; box-shadow: 3px 3px 10px rgba(0,0,0,0.08);">
+          <div class="department-img-container mb-1 mx-auto" style="width: 100%; max-width: 200px; height: 100px; overflow: hidden; border-radius: 6px;">
+            <img src="neuro.png" alt="Neurology" class="img-fluid h-100 w-100 object-fit-cover" style="object-position: center;">
+          </div>
+          <h6 class="mb-1" style="font-size: 0.95rem;">Neurology</h6>
+          <button class="btn btn-xs btn-outline-primary py-0" style="font-size: 0.8rem;">Explore</button>
+        </div>
+      </div>
+      
+      <!-- Neurosurgery -->
+      <div class="col-md-4 col-sm-6">
+        <div class="department-card p-2 text-center h-100" 
+             style="transform: perspective(500px) rotateY(-2deg); transition: all 0.3s ease; border: none; box-shadow: 3px 3px 10px rgba(0,0,0,0.08);">
+          <div class="department-img-container mb-1 mx-auto" style="width: 100%; max-width: 200px; height: 100px; overflow: hidden; border-radius: 6px;">
+            <img src="surgery.jpg" alt="Neurosurgery" class="img-fluid h-100 w-100 object-fit-cover" style="object-position: center;">
+          </div>
+          <h6 class="mb-1" style="font-size: 0.95rem;">Neurosurgery</h6>
+          <button class="btn btn-xs btn-outline-primary py-0" style="font-size: 0.8rem;">Explore</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Carousel -->
+<section class="services-carousel py-5" style="background-color: #f8f0f5;">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-3" style="color: #651f57;">Our Advanced Services</h2>
+    <p class="text-center text-muted mb-4">
+      Cutting-edge medical technology for accurate diagnosis and effective treatment
+    </p>
+
+    <div id="servicesCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+      
+      <!-- Indicators -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#servicesCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#servicesCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#servicesCarousel" data-bs-slide-to="2"></button>
+        <button type="button" data-bs-target="#servicesCarousel" data-bs-slide-to="3"></button>
+        <button type="button" data-bs-target="#servicesCarousel" data-bs-slide-to="4"></button>
+        <button type="button" data-bs-target="#servicesCarousel" data-bs-slide-to="5"></button>
+      </div>
+
+      <!-- Carousel Inner -->
+      <div class="carousel-inner rounded-4 shadow-lg">
+
+        <!-- Robotic Surgery -->
+        <div class="carousel-item active">
+          <img src="robotics.jpeg" class="d-block w-100 mx-auto" alt="Robotic Assisted Surgery" style="height: 350px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+            <div class="bg-dark bg-opacity-75 rounded-3 p-3">
+              <h5 class="text-white">Robotic Assisted Surgery</h5>
+              <p class="text-white-50">Advanced precision in complex procedures using robotics with minimal invasion</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PET CT -->
+        <div class="carousel-item">
+          <img src="pt.png" class="d-block w-100 mx-auto" alt="PET CT" style="height: 350px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+            <div class="bg-dark bg-opacity-75 rounded-3 p-3">
+              <h5 class="text-white">PET CT</h5>
+              <p class="text-white-50">Combining functional and anatomical imaging for accurate cancer diagnosis</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SPECT CT -->
+        <div class="carousel-item">
+          <img src="spect.png" class="d-block w-100 mx-auto" alt="SPECT CT" style="height: 350px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+            <div class="bg-dark bg-opacity-75 rounded-3 p-3">
+              <h5 class="text-white">SPECT CT</h5>
+              <p class="text-white-50">High-resolution imaging for cardiac and bone diagnostics with 3D reconstruction</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Radiation Therapy -->
+        <div class="carousel-item">
+          <img src="radiation.jpg" class="d-block w-100 mx-auto" alt="Radiation Therapy" style="height: 350px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+            <div class="bg-dark bg-opacity-75 rounded-3 p-3">
+              <h5 class="text-white">Radiation Therapy</h5>
+              <p class="text-white-50">Targeted cancer treatment with minimal side effects using IMRT and IGRT</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Tesla MRI -->
+        <div class="carousel-item">
+          <img src="tesla.jpg" class="d-block w-100 mx-auto" alt="3 Tesla MRI Scanner" style="height: 350px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+            <div class="bg-dark bg-opacity-75 rounded-3 p-3">
+              <h5 class="text-white">3 Tesla MRI Scanner</h5>
+              <p class="text-white-50">High-speed, high-resolution imaging for accurate neurological diagnosis</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Diagnostic Lab -->
+        <div class="carousel-item">
+          <img src="lab.jpeg" class="d-block w-100 mx-auto" alt="Diagnostic Lab" style="height: 350px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block">
+            <div class="bg-dark bg-opacity-75 rounded-3 p-3">
+              <h5 class="text-white">Diagnostic Lab</h5>
+              <p class="text-white-50">NABL accredited comprehensive tests with fast and reliable reports</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer class="footer pt-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h3 class="h4 mb-4">Trinity Care Hospital</h3>
+          <p class="mb-4">Proclaim the glory of God through quality based compassionate healthcare services, bearing witness to Christ.</p>
+          <div class="d-flex mb-4">
+            <a href="#" class="social-icon me-2" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon me-2" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon me-2" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-icon me-2" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="YouTube">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+          <div class="mb-3">
+            <h4 class="h6 mb-3">Newsletter</h4>
+            <div class="input-group">
+              <input type="email" class="form-control" placeholder="Your Email" aria-label="Subscribe">
+              <button class="btn btn-secondary" type="button">Subscribe</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-4">
+          <h4 class="h6 mb-4">Quick Links</h4>
+          <ul class="list-unstyled footer-links">
+            <li class="mb-2"><a href="#">Home</a></li>
+            <li class="mb-2"><a href="#">About Us</a></li>
+            <li class="mb-2"><a href="#">Departments</a></li>
+            <li class="mb-2"><a href="#">Doctors</a></li>
+            <li class="mb-2"><a href="#">Facilities</a></li>
+            <li class="mb-2"><a href="#">Gallery</a></li>
+            <li class="mb-2"><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-4">
+          <h4 class="h6 mb-4">Services</h4>
+          <ul class="list-unstyled footer-links">
+            <li class="mb-2"><a href="#">Emergency Care</a></li>
+            <li class="mb-2"><a href="#">OPD Services</a></li>
+            <li class="mb-2"><a href="#">Diagnostics</a></li>
+            <li class="mb-2"><a href="#">Health Checkups</a></li>
+            <li class="mb-2"><a href="#">Physiotherapy</a></li>
+            <li class="mb-2"><a href="#">Pharmacy</a></li>
+            <li class="mb-2"><a href="#">Ambulance</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-4">
+          <h4 class="h6 mb-4">Contact Us</h4>
+          <address class="mb-4">
+            <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Trinity Care Hospital, Main Road, City, State - 123456</p>
+            <p class="mb-2"><i class="fas fa-envelope me-2"></i> contact@trinitycarehospital.com</p>
+            <p class="mb-2"><i class="fas fa-envelope me-2"></i> hr@trinitycarehospital.com</p>
+            <p class="mb-2"><i class="fas fa-phone-alt me-2"></i> (0485) 2835343 (Reception)</p>
+            <p class="mb-2"><i class="fas fa-phone-alt me-2"></i> (0485) 2835151 (Reception)</p>
+            <p class="mb-0"><i class="fas fa-mobile-alt me-2"></i> 9446422151 (Booking)</p>
+          </address>
+          <div class="mb-3">
+            <h5 class="h6 mb-3">Emergency</h5>
+            <a href="tel:+919446422152" class="btn btn-danger btn-sm"><i class="fas fa-ambulance me-2"></i> +91 9446422152</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-top mt-5 pt-4">
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <p class="mb-0">&copy; 2025 Trinity Care Hospital. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="#" class="text-white me-3">Privacy Policy</a>
+            <a href="#" class="text-white me-3">Terms of Service</a>
+            <a href="#" class="text-white">Sitemap</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-4" id="backToTop" style="width: 50px; height: 50px; display: none;">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Custom JS -->
+  <script>
+    // Back to Top Button
+    window.addEventListener('scroll', function() {
+      var backToTop = document.getElementById('backToTop');
+      if (window.pageYOffset > 300) {
+        backToTop.style.display = 'flex';
+        backToTop.style.alignItems = 'center';
+        backToTop.style.justifyContent = 'center';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    
+    document.getElementById('backToTop').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  </script>
+</body>
+</html>

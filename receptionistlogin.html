@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Trinity Care Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.cfsitalia.com/wp-content/uploads/2024/05/banconi-ospedale-cfs-1-900x599.jpg') no-repeat center center/cover;
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .header {
+      background-color: #651f57;
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header h1 {
+      margin: 10;
+      font-size: 28px;
+    }
+
+    .back-to-dashboard {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: background-color 0.3s;
+    }
+
+    .back-to-dashboard:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .back-to-dashboard i {
+      margin-right: 8px;
+    }
+
+    .card-title {
+      color: #651f57;
+    }
+
+    .btn-primary {
+      background-color: #651f57;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #521847;
+    }
+
+    .form-control:focus {
+      border-color: #651f57;
+      box-shadow: 0 0 0 0.2rem rgba(101, 31, 87, 0.25);
+    }
+
+    .forgot-link {
+      color: #651f57;
+    }
+
+    .footer {
+      background-color: #651f57;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .footer a {
+      color: #651f57;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .login-wrapper {
+      height: 77%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      background: white;
+      padding: 2rem;
+    }
+
+    .card:hover {
+      transform: perspective(1000px) rotateY(2deg) scale(1.02);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-text {
+      font-size: 0.9rem;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 576px) {
+      .header h1 {
+        font-size: 22px;
+      }
+      
+      .back-to-dashboard {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+      
+      .card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-content">
+      <h1>TRINITY CARE HOSPITAL</h1>
+      <a href="dashboard.html" class="back-to-dashboard">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="login-wrapper">
+    <div class="card">
+      <h3 class="card-title text-center mb-4"><strong>Login to Trinity Care</strong></h3>
+      <form id="loginForm" action="receptionist.html" method="GET" autocomplete="off" novalidate>
+        <!-- Hidden dummy fields to prevent Chrome autofill -->
+        <input type="text" name="fakeuser" style="display: none;">
+        <input type="password" name="fakepass" style="display: none;">
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username"
+                 placeholder="Enter username" required
+                 autocomplete="off" spellcheck="false">
+          <div id="usernameError" class="error"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password"
+                 placeholder="Enter password" required
+                 autocomplete="new-password" spellcheck="false">
+          <div id="passwordError" class="error"></div>
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+        <a href="#" class="forgot-link text-decoration-none mt-2 d-block text-center">Forgot Password?</a>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    &copy; 2023 Trinity Care Hospital. All Rights Reserved.
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom Script -->
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      let isValid = true;
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const usernameError = document.getElementById("usernameError");
+      const passwordError = document.getElementById("passwordError");
+
+      usernameError.textContent = "";
+      passwordError.textContent = "";
+
+      if (username === "") {
+        usernameError.textContent = "Username is required.";
+        isValid = false;
+      } else if (username.toLowerCase() !== "receptionist") {
+        usernameError.textContent = "Invalid username.";
+        isValid = false;
+      }
+
+      if (password === "") {
+        passwordError.textContent = "Password is required.";
+        isValid = false;
+      } else if (password !== "receptionist") {
+        passwordError.textContent = "Invalid password.";
+        isValid = false;
+      }
+
+      if (!isValid) {
+        e.preventDefault(); // Prevent form submission if invalid
+      }
+    });
+
+    document.querySelector(".forgot-link").addEventListener("click", function(e) {
+      e.preventDefault();
+      alert("For receptionist access:\nUsername: receptionist\nPassword: receptionist@123");
+    });
+  </script>
+</body>
+</html>

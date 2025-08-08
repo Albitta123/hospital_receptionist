@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient List - Trinity Care Hospital</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #651f57;
+      --primary-dark: #521847;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      width: 80px;
+      height: 50px;
+    }
+
+    .hospital-title {
+      margin-left: 15px;
+      font-weight: 600;
+    }
+
+    .patient-table {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .patient-table th {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 500;
+    }
+
+    .patient-table td, .patient-table th {
+      vertical-align: middle;
+      padding: 12px 15px;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      margin: 0 3px;
+      font-size: 0.85rem;
+    }
+
+    .btn-view {
+      background-color: #17a2b8;
+      color: white;
+      border: none;
+    }
+
+    .btn-edit {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+    }
+
+    .btn-view:hover {
+      background-color: #138496;
+      color: white;
+    }
+
+    .btn-edit:hover {
+      background-color: var(--primary-dark);
+      color: white;
+    }
+
+    .badge-id {
+      background-color: var(--primary-dark);
+      font-weight: 500;
+    }
+
+    .btn-add-patient {
+      background-color: white;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+
+    .btn-add-patient:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .main-content {
+      flex: 1;
+    }
+
+    .footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 0;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .hospital-title {
+        font-size: 1.2rem;
+      }
+      
+      .patient-table td, .patient-table th {
+        padding: 8px 10px;
+      }
+      
+      .action-btn {
+        padding: 3px 6px;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+ <header class="header py-3">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <img src="logo.jpg" alt="Hospital Logo" class="logo" style="height: 60px;">
+      </div>
+      <div class="col text-center">
+        <h1 class="hospital-title text-uppercase mb-0">Trinity Care Hospital</h1>
+      </div>
+      <div class="col-4 text-end">
+        <a href="receptionist.html" class="btn btn-light fw-semibold" style="background-color: #ffffff; color: #651f57; border: none;">
+          <i class="fas fa-tachometer-alt me-2"></i> Go Back
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+  <div class="container py-4 main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="mb-0">Patient List</h2>
+      <div>
+        <a href="add-patient.html" class="btn btn-add-patient me-2">
+          <i class="fas fa-plus me-2"></i>Add New Patient
+        </a>
+      </div>
+    </div>
+
+    <div class="patient-table">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Reg. No.</th>
+            <th>Patient Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Blood Group</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="patientTableBody">
+          <!-- Patient rows will be inserted here by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Patient Details Modal -->
+  <div class="modal fade" id="patientDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Patient Details</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <h6 class="text-muted">Registration Number</h6>
+                <p class="h5" id="modalRegNo">PAT-1001</p>
+              </div>
+              <div class="mb-3">
+                <h6 class="text-muted">Full Name</h6>
+                <p class="h5" id="modalName">John Smith</p>
+              </div>
+              <div class="mb-3">
+                <h6 class="text-muted">Date of Birth</h6>
+                <p class="h5" id="modalDob">15/03/1988</p>
+              </div>
+              <div class="mb-3">
+                <h6 class="text-muted">Age</h6>
+                <p class="h5" id="modalAge">35</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <h6 class="text-muted">Gender</h6>
+                <p class="h5" id="modalGender">Male</p>
+              </div>
+              <div class="mb-3">
+                <h6 class="text-muted">Blood Group</h6>
+                <p class="h5" id="modalBlood">A+</p>
+              </div>
+              <div class="mb-3">
+                <h6 class="text-muted">Phone Number</h6>
+                <p class="h5" id="modalPhone">+1 555-123-4567</p>
+              </div>
+              <div class="mb-3">
+                <h6 class="text-muted">Address</h6>
+                <p class="h5" id="modalAddress">123 Main St, Anytown, USA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Patient Modal -->
+  <div class="modal fade" id="editPatientModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Edit Patient Details</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editPatientForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="editRegNo" class="form-label">Registration Number</label>
+                  <input type="text" class="form-control" id="editRegNo" readonly>
+                </div>
+                <div class="mb-3">
+                  <label for="editName" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="editName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="editDob" class="form-label">Date of Birth</label>
+                  <input type="date" class="form-control" id="editDob" required>
+                </div>
+                <div class="mb-3">
+                  <label for="editAge" class="form-label">Age</label>
+                  <input type="number" class="form-control" id="editAge" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Gender</label>
+                  <div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="editGender" id="editGenderMale" value="Male" required>
+                      <label class="form-check-label" for="editGenderMale">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="editGender" id="editGenderFemale" value="Female">
+                      <label class="form-check-label" for="editGenderFemale">Female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="editGender" id="editGenderOther" value="Other">
+                      <label class="form-check-label" for="editGenderOther">Other</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="editBlood" class="form-label">Blood Group</label>
+                  <select class="form-select" id="editBlood" required>
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="editPhone" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="editPhone" required>
+                </div>
+                <div class="mb-3">
+                  <label for="editAddress" class="form-label">Address</label>
+                  <textarea class="form-control" id="editAddress" rows="2" required></textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="savePatientChanges()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Trinity Care Hospital</h5>
+          <p>Providing quality healthcare services since 1995.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="mb-0">&copy; 2023 Trinity Care Hospital. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Load patient data from localStorage
+    function loadPatients() {
+      const patients = JSON.parse(localStorage.getItem('patients')) || {};
+      const tbody = document.getElementById('patientTableBody');
+      tbody.innerHTML = '';
+      
+      for (const [id, patient] of Object.entries(patients)) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><span class="badge badge-id">${id}</span></td>
+          <td>${patient.name}</td>
+          <td>${patient.age}</td>
+          <td>${patient.gender}</td>
+          <td>${patient.blood}</td>
+          <td>
+            <button class="btn btn-view action-btn" onclick="showPatientDetails('${id}')" data-bs-toggle="modal" data-bs-target="#patientDetailsModal">
+              <i class="fas fa-eye"></i> View
+            </button>
+            <button class="btn btn-edit action-btn" onclick="showEditForm('${id}')" data-bs-toggle="modal" data-bs-target="#editPatientModal">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      }
+    }
+
+    // Show patient details in view modal
+    function showPatientDetails(patientId) {
+      const patients = JSON.parse(localStorage.getItem('patients'));
+      const patient = patients[patientId];
+      
+      if (patient) {
+        document.getElementById('modalRegNo').textContent = patientId;
+        document.getElementById('modalName').textContent = patient.name;
+        document.getElementById('modalDob').textContent = formatDate(patient.dob);
+        document.getElementById('modalAge').textContent = patient.age;
+        document.getElementById('modalGender').textContent = patient.gender;
+        document.getElementById('modalBlood').textContent = patient.blood;
+        document.getElementById('modalPhone').textContent = patient.phone;
+        document.getElementById('modalAddress').textContent = patient.address;
+      }
+    }
+
+    // Show edit form with patient data
+    function showEditForm(patientId) {
+      const patients = JSON.parse(localStorage.getItem('patients'));
+      const patient = patients[patientId];
+      
+      if (patient) {
+        document.getElementById('editRegNo').value = patientId;
+        document.getElementById('editName').value = patient.name;
+        document.getElementById('editDob').value = patient.dob;
+        document.getElementById('editAge').value = patient.age;
+        document.querySelector(`input[name="editGender"][value="${patient.gender}"]`).checked = true;
+        document.getElementById('editBlood').value = patient.blood;
+        document.getElementById('editPhone').value = patient.phone;
+        document.getElementById('editAddress').value = patient.address;
+      }
+    }
+
+    // Save changes to patient data
+    function savePatientChanges() {
+      const patientId = document.getElementById('editRegNo').value;
+      const patients = JSON.parse(localStorage.getItem('patients'));
+      
+      if (patients[patientId]) {
+        patients[patientId] = {
+          name: document.getElementById('editName').value,
+          dob: document.getElementById('editDob').value,
+          age: document.getElementById('editAge').value,
+          gender: document.querySelector('input[name="editGender"]:checked').value,
+          blood: document.getElementById('editBlood').value,
+          phone: document.getElementById('editPhone').value,
+          address: document.getElementById('editAddress').value
+        };
+        
+        localStorage.setItem('patients', JSON.stringify(patients));
+        
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editPatientModal'));
+        modal.hide();
+        
+        // Refresh the patient list
+        loadPatients();
+        
+        alert('Patient details updated successfully!');
+      }
+    }
+
+    // Refresh patient list
+    function refreshPatientList() {
+      loadPatients();
+    }
+
+    // Helper function to format date
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-GB'); // DD/MM/YYYY format
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      loadPatients();
+    });
+  </script>
+</body>
+</html>
