@@ -269,13 +269,19 @@
       passwordError.textContent = "";
 
       // Validate username (alphabets only)
-      if (username === "") {
-        usernameError.textContent = "Username is required.";
-        isValid = false;
-      } else if (!/^[A-Za-z]+$/.test(username)) {
-        usernameError.textContent = "Username must contain only letters.";
-        isValid = false;
-      }
+     if (username.trim() === "") {
+  usernameError.textContent = "Username is required.";
+  isValid = false;
+} else if (!/^[A-Za-z]+$/.test(username)) {
+  usernameError.textContent = "Username must contain only letters.";
+  isValid = false;
+} else if (username.length < 3) {
+  usernameError.textContent = "Username must be at least 3 characters long.";
+  isValid = false;
+} else {
+  usernameError.textContent = "";
+}
+
 
       // Validate password (min 6 characters)
       if (password === "") {
