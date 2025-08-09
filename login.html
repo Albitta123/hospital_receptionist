@@ -52,6 +52,7 @@
       font-size: 1.3rem;
       letter-spacing: 0.5px;
       color: white;
+      margin: 0;
     }
 
     .btn-back {
@@ -59,10 +60,25 @@
       border: 1px solid white;
       color: white;
       transition: all 0.3s;
+      white-space: nowrap;
     }
 
     .btn-back:hover {
       background-color: rgba(255,255,255,0.1);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
     }
 
     /* Main Content */
@@ -141,6 +157,12 @@
       color: white;
     }
 
+    @media (max-width: 992px) {
+      .hospital-title {
+        font-size: 1.2rem;
+      }
+    }
+
     @media (max-width: 768px) {
       .hospital-title {
         font-size: 1.1rem;
@@ -150,6 +172,33 @@
         padding: 0.25rem 0.5rem;
         font-size: 0.8rem;
       }
+
+      .brand-container {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .header-content {
+        flex-direction: column;
+        gap: 10px;
+        padding: 5px 0;
+      }
+
+      .brand-container {
+        justify-content: center;
+        margin-bottom: 5px;
+      }
+
+      .hospital-title {
+        font-size: 1rem;
+      }
+
+      .btn-back {
+        width: 100%;
+        text-align: center;
+        padding: 0.3rem;
+      }
     }
   </style>
 </head>
@@ -158,10 +207,10 @@
   <!-- Header -->
   <header class="header sticky-top">
     <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
+      <div class="header-content">
+        <div class="brand-container">
           <img src="logo.jpg" alt="Trinity Care Logo" class="logo me-2">
-          <span class="hospital-title" style="margin-left: 200px;">TRINITY CARE HOSPITAL</span>
+          <span class="hospital-title">TRINITY CARE HOSPITAL</span>
         </div>
         <a href="index.html" class="btn btn-back">
           <i class="fas fa-arrow-left me-1"></i> Back to Home
